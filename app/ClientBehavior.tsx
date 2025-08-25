@@ -123,8 +123,9 @@ export function ClientBehavior() {
       currentIndex = index;
     }
     dots.forEach(dot => {
-      dot.addEventListener('click', function () {
-        const index = parseInt((this as HTMLElement).getAttribute('data-index') || '0');
+      dot.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLElement | null;
+        const index = parseInt(target?.getAttribute('data-index') || '0', 10);
         showTestimonial(index);
         resetInterval();
       });
