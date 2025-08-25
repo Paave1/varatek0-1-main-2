@@ -70,8 +70,9 @@ export function ClientBehavior() {
       }
     }
     langButtons.forEach(button => {
-      button.addEventListener('click', function () {
-        const lang = (this as HTMLElement).getAttribute('data-lang')!;
+      button.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLElement | null;
+        const lang = target?.getAttribute('data-lang') || 'fi';
         setLanguage(lang);
       });
     });
