@@ -25,7 +25,10 @@ export function ClientBehavior() {
         mainNav?.classList.toggle('active');
         menuOverlay?.classList.toggle('active');
         document.body.classList.toggle('menu-open');
-        (mobileMenuToggle as HTMLElement)?.setAttribute('aria-expanded', (mobileMenuToggle?.classList.contains('active')).toString());
+        if (mobileMenuToggle) {
+          const expanded = mobileMenuToggle.classList.contains('active');
+          mobileMenuToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        }
       }
     };
     document.addEventListener('click', delegatedClick);
