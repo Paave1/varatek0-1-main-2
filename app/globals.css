@@ -1,0 +1,6 @@
+/* Global CSS migrated from styles.css with image paths adjusted to /images/ */
+@import url('../styles.css');
+
+/* Ensure hero uses public image path */
+.hero { background-image: url('/images/hero.jpg'); }
+

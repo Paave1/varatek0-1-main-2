@@ -1,0 +1,172 @@
+"use client";
+
+import { useEffect } from 'react';
+
+export function ClientBehavior() {
+  useEffect(() => {
+    // Paste script.js logic
+    // Mobile menu functionality
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mainNav = document.getElementById('mainNav');
+    const menuOverlay = document.getElementById('menuOverlay');
+
+    function closeMenu() {
+      mobileMenuToggle?.classList.remove('active');
+      mainNav?.classList.remove('active');
+      menuOverlay?.classList.remove('active');
+      document.body.classList.remove('menu-open');
+    }
+
+    const delegatedClick = (e: Event) => {
+      const target = e.target as HTMLElement | null;
+      const trigger = target?.closest('#mobileMenuToggle');
+      if (trigger) {
+        mobileMenuToggle?.classList.toggle('active');
+        mainNav?.classList.toggle('active');
+        menuOverlay?.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+        (mobileMenuToggle as HTMLElement)?.setAttribute('aria-expanded', (mobileMenuToggle?.classList.contains('active')).toString());
+      }
+    };
+    document.addEventListener('click', delegatedClick);
+
+    const overlayClick = (e: Event) => { if (e.target === menuOverlay) closeMenu(); };
+    menuOverlay?.addEventListener('click', overlayClick);
+
+    const navLinks = Array.from(document.querySelectorAll('.nav-links a.nav-link'));
+    const navLinkHandler = function (this: Element) {
+        const currentLang = localStorage.getItem('selectedLanguage') || 'fi';
+        const enSpan = this.querySelector('.en');
+        const fiSpan = this.querySelector('.fi');
+        if (currentLang === 'en') {
+          enSpan?.classList.remove('hidden');
+          fiSpan?.classList.add('hidden');
+        } else {
+          enSpan?.classList.add('hidden');
+          fiSpan?.classList.remove('hidden');
+        }
+        closeMenu();
+      };
+    navLinks.forEach(link => link.addEventListener('click', navLinkHandler as any));
+
+    const langButtons = document.querySelectorAll('.lang-btn');
+    const enElements = document.querySelectorAll('.en');
+    const fiElements = document.querySelectorAll('.fi');
+    function setLanguage(lang: string) {
+      localStorage.setItem('selectedLanguage', lang);
+      langButtons.forEach(btn => {
+        if ((btn as HTMLElement).getAttribute('data-lang') === lang) btn.classList.add('active');
+        else btn.classList.remove('active');
+      });
+      if (lang === 'en') {
+        enElements.forEach(el => el.classList.remove('hidden'));
+        fiElements.forEach(el => el.classList.add('hidden'));
+      } else {
+        enElements.forEach(el => el.classList.add('hidden'));
+        fiElements.forEach(el => el.classList.remove('hidden'));
+      }
+    }
+    langButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        const lang = (this as HTMLElement).getAttribute('data-lang')!;
+        setLanguage(lang);
+      });
+    });
+    const savedLanguage = localStorage.getItem('selectedLanguage') || 'fi';
+    setLanguage(savedLanguage);
+
+    const anchorHandler = function (this: HTMLAnchorElement, e: Event) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href')!;
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          setTimeout(() => {
+            window.scrollTo({ top: (targetElement as HTMLElement).offsetTop - 80, behavior: 'smooth' });
+          }, 100);
+        }
+      };
+    const anchors = Array.from(document.querySelectorAll('a[href^="#"]')) as HTMLAnchorElement[];
+    anchors.forEach(a => a.addEventListener('click', anchorHandler as any));
+
+    const contactForm = document.getElementById('contactForm') as HTMLFormElement | null;
+    contactForm?.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = (document.getElementById('name') as HTMLInputElement).value;
+      const email = (document.getElementById('email') as HTMLInputElement).value;
+      const message = (document.getElementById('message') as HTMLTextAreaElement).value;
+      console.log('Form submitted:', { name, email, message });
+      const currentLang = localStorage.getItem('selectedLanguage') || 'fi';
+      alert(currentLang === 'fi' ? 'Kiitos viestistäsi! Otamme sinuun yhteyttä pian.' : 'Thank you for your message! We will get back to you soon.');
+      contactForm.reset();
+    });
+
+    const testimonials = document.querySelectorAll('.testimonial');
+    const dots = document.querySelectorAll('.testimonial-dots .dot');
+    let currentIndex = 0;
+    let interval: any;
+    if (testimonials.length > 0) (testimonials[0] as HTMLElement).classList.add('active');
+    function showTestimonial(index: number) {
+      testimonials.forEach(t => t.classList.remove('active'));
+      (testimonials[index] as HTMLElement).classList.add('active');
+      dots.forEach(d => d.classList.remove('active'));
+      (dots[index] as HTMLElement).classList.add('active');
+      const currentLang = localStorage.getItem('selectedLanguage') || 'fi';
+      const activeTestimonial = testimonials[index]!;
+      const enEls = activeTestimonial.querySelectorAll('.en');
+      const fiEls = activeTestimonial.querySelectorAll('.fi');
+      if (currentLang === 'en') { enEls.forEach(el => el.classList.remove('hidden')); fiEls.forEach(el => el.classList.add('hidden')); }
+      else { enEls.forEach(el => el.classList.add('hidden')); fiEls.forEach(el => el.classList.remove('hidden')); }
+      currentIndex = index;
+    }
+    dots.forEach(dot => {
+      dot.addEventListener('click', function () {
+        const index = parseInt((this as HTMLElement).getAttribute('data-index') || '0');
+        showTestimonial(index);
+        resetInterval();
+      });
+    });
+    function nextTestimonial() { let next = currentIndex + 1; if (next >= testimonials.length) next = 0; showTestimonial(next); }
+    function resetInterval() { clearInterval(interval); interval = setInterval(nextTestimonial, 5000); }
+    resetInterval();
+
+    // Projects scroller controls with loop
+    const projectsScroller = document.querySelector('.projects-scroller .projects-grid');
+    const projectsPrev = document.querySelector('.projects-prev');
+    const projectsNext = document.querySelector('.projects-next');
+    if (projectsScroller && projectsPrev && projectsNext) {
+      const cards = Array.from(projectsScroller.querySelectorAll('.project-card'));
+      const computeStep = () => cards.length > 1 ? Math.max(1, (cards[1] as HTMLElement).offsetLeft - (cards[0] as HTMLElement).offsetLeft) : (cards[0] as HTMLElement).getBoundingClientRect().width;
+      const getIndex = () => Math.round((projectsScroller as HTMLElement).scrollLeft / computeStep());
+      const scrollToIndex = (idx: number, smooth = true) => (projectsScroller as HTMLElement).scrollTo({ left: computeStep() * idx, behavior: smooth ? 'smooth' : 'auto' });
+      projectsNext.addEventListener('click', () => { const current = getIndex(); const next = current + 1; if (next >= cards.length) scrollToIndex(0); else scrollToIndex(next); });
+      projectsPrev.addEventListener('click', () => { const current = getIndex(); const prev = current - 1; if (prev < 0) scrollToIndex(cards.length - 1); else scrollToIndex(prev); });
+    }
+
+    // Header click → scroll to #home (desktop and mobile) when clicking free space
+    const header = document.querySelector('header');
+    const headerClick = (e: Event) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      // Ignore clicks on interactive elements inside header
+      if (target.closest('a, button, .language-switcher, #mobileMenuToggle, nav')) return;
+      const home = document.getElementById('home');
+      if (home) {
+        e.preventDefault();
+        closeMenu();
+        window.scrollTo({ top: home.offsetTop - 80, behavior: 'smooth' });
+      }
+    };
+    header?.addEventListener('click', headerClick);
+    return () => {
+      document.removeEventListener('click', delegatedClick);
+      menuOverlay?.removeEventListener('click', overlayClick);
+      navLinks.forEach(link => link.removeEventListener('click', navLinkHandler as any));
+      anchors.forEach(a => a.removeEventListener('click', anchorHandler as any));
+      clearInterval(interval);
+      header?.removeEventListener('click', headerClick);
+    };
+  }, []);
+
+  return null;
+}
+
