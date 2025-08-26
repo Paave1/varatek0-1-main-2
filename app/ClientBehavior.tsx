@@ -93,29 +93,43 @@ export function ClientBehavior() {
     anchors.forEach(a => a.addEventListener('click', anchorHandler as any));
 
     const contactForm = document.getElementById('contactForm') as HTMLFormElement | null;
-    contactForm?.addEventListener('submit', async function (e) {
+    const onContactSubmit = async (e: Event) => {
       e.preventDefault();
-      const formData = new FormData(contactForm);
+      if (!contactForm) return;
+      const currentLang = localStorage.getItem('selectedLanguage') || 'fi';
       try {
-        // Formspree endpoint provided by user
-        const res = await fetch('https://formspree.io/f/movnqnwe', {
+        // EmailJS without SDK, plain REST
+        const publicKey = contactForm.getAttribute('data-emailjs-public') || '';
+        const serviceId = contactForm.getAttribute('data-emailjs-service') || '';
+        const templateId = contactForm.getAttribute('data-emailjs-template') || '';
+        const name = (document.getElementById('name') as HTMLInputElement).value;
+        const email = (document.getElementById('email') as HTMLInputElement).value;
+        const message = (document.getElementById('message') as HTMLTextAreaElement).value;
+
+        const payload = {
+          service_id: serviceId,
+          template_id: templateId,
+          user_id: publicKey,
+          template_params: { name, email, message }
+        };
+
+        const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
           method: 'POST',
-          body: formData,
-          headers: { 'Accept': 'application/json' }
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
         });
-        const ok = res.ok;
-        const currentLang = localStorage.getItem('selectedLanguage') || 'fi';
-        if (ok) {
+
+        if (res.ok) {
           alert(currentLang === 'fi' ? 'Kiitos viestistäsi! Otamme sinuun yhteyttä pian.' : 'Thank you for your message! We will get back to you soon.');
           contactForm.reset();
         } else {
           alert(currentLang === 'fi' ? 'Lähetys epäonnistui. Yritä myöhemmin uudelleen.' : 'Failed to send. Please try again later.');
         }
       } catch {
-        const currentLang = localStorage.getItem('selectedLanguage') || 'fi';
         alert(currentLang === 'fi' ? 'Lähetys epäonnistui. Yritä myöhemmin uudelleen.' : 'Failed to send. Please try again later.');
       }
-    });
+    };
+    contactForm?.addEventListener('submit', onContactSubmit as any);
 
     const testimonials = document.querySelectorAll('.testimonial');
     const dots = document.querySelectorAll('.testimonial-dots .dot');
@@ -182,6 +196,7 @@ export function ClientBehavior() {
       anchors.forEach(a => a.removeEventListener('click', anchorHandler as any));
       clearInterval(interval);
       header?.removeEventListener('click', headerClick);
+      contactForm?.removeEventListener('submit', onContactSubmit as any);
     };
   }, []);
 
