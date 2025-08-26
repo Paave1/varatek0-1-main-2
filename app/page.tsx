@@ -293,6 +293,12 @@ export default function Page() {
                   <h4 className="fi hidden">Sähköposti</h4>
                   <p>info@varatek.fi</p>
                 </div>
+                <div className="info-item">
+                  <h4 className="en">Contacts</h4>
+                  <h4 className="fi hidden">Yhteyshenkilöt</h4>
+                  <p>Igor Aksenov — Toimitusjohtaja — +358 45 1964604</p>
+                  <p>Sergei Anufrikov — Myynti — +358 41 3280983</p>
+                </div>
               </div>
               <div className="map-container">
                 <iframe
