@@ -93,15 +93,29 @@ export function ClientBehavior() {
     anchors.forEach(a => a.addEventListener('click', anchorHandler as any));
 
     const contactForm = document.getElementById('contactForm') as HTMLFormElement | null;
-    contactForm?.addEventListener('submit', function (e) {
+    contactForm?.addEventListener('submit', async function (e) {
       e.preventDefault();
       const name = (document.getElementById('name') as HTMLInputElement).value;
       const email = (document.getElementById('email') as HTMLInputElement).value;
       const message = (document.getElementById('message') as HTMLTextAreaElement).value;
-      console.log('Form submitted:', { name, email, message });
-      const currentLang = localStorage.getItem('selectedLanguage') || 'fi';
-      alert(currentLang === 'fi' ? 'Kiitos viestistäsi! Otamme sinuun yhteyttä pian.' : 'Thank you for your message! We will get back to you soon.');
-      contactForm.reset();
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, message })
+        });
+        const ok = res.ok;
+        const currentLang = localStorage.getItem('selectedLanguage') || 'fi';
+        if (ok) {
+          alert(currentLang === 'fi' ? 'Kiitos viestistäsi! Otamme sinuun yhteyttä pian.' : 'Thank you for your message! We will get back to you soon.');
+          contactForm.reset();
+        } else {
+          alert(currentLang === 'fi' ? 'Lähetys epäonnistui. Yritä myöhemmin uudelleen.' : 'Failed to send. Please try again later.');
+        }
+      } catch {
+        const currentLang = localStorage.getItem('selectedLanguage') || 'fi';
+        alert(currentLang === 'fi' ? 'Lähetys epäonnistui. Yritä myöhemmin uudelleen.' : 'Failed to send. Please try again later.');
+      }
     });
 
     const testimonials = document.querySelectorAll('.testimonial');
