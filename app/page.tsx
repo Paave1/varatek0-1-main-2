@@ -286,7 +286,7 @@ export default function Page() {
                 <div className="info-item">
                   <h4 className="en">Phone</h4>
                   <h4 className="fi hidden">Puhelin</h4>
-                  <p>+358 123 456 789</p>
+                  <p>+358 45 1964604</p>
                 </div>
                 <div className="info-item">
                   <h4 className="en">Email</h4>
