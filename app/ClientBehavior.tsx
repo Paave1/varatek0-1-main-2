@@ -95,14 +95,13 @@ export function ClientBehavior() {
     const contactForm = document.getElementById('contactForm') as HTMLFormElement | null;
     contactForm?.addEventListener('submit', async function (e) {
       e.preventDefault();
-      const name = (document.getElementById('name') as HTMLInputElement).value;
-      const email = (document.getElementById('email') as HTMLInputElement).value;
-      const message = (document.getElementById('message') as HTMLTextAreaElement).value;
+      const formData = new FormData(contactForm);
       try {
-        const res = await fetch('/api/contact', {
+        // Formspree endpoint provided by user
+        const res = await fetch('https://formspree.io/f/movnqnwe', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, message })
+          body: formData,
+          headers: { 'Accept': 'application/json' }
         });
         const ok = res.ok;
         const currentLang = localStorage.getItem('selectedLanguage') || 'fi';
