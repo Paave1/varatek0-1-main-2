@@ -1094,6 +1094,15 @@ header {
     font-weight: 300;
 }
 
+/* Contact links: clear affordance */
+.contact-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+.contact-link i { margin-right: 8px; }
+.contact-link:hover { text-decoration: underline; }
+
 .map-container {
     border-radius: 12px;
     overflow: hidden;

@@ -287,14 +287,14 @@ export default function Page() {
                   <h4 className="en">Phone</h4>
                   <h4 className="fi hidden">Puhelin</h4>
                   <p>Igor Aksenov — Toimitusjohtaja</p>
-                  <p><a href="tel:+358451964604" style={{ color: 'inherit', textDecoration: 'none' }}>+358 45 1964604</a></p>
+                  <p><a href="tel:+358451964604" className="contact-link phone"><i className="fas fa-phone" /> +358 45 1964604</a></p>
                   <p>Sergei Anufrikov — Myynti- ja rakennuspäällikkö</p>
-                  <p><a href="tel:+358413280983" style={{ color: 'inherit', textDecoration: 'none' }}>+358 41 3280983</a></p>
+                  <p><a href="tel:+358413280983" className="contact-link phone"><i className="fas fa-phone" /> +358 41 3280983</a></p>
                 </div>
                 <div className="info-item">
                   <h4 className="en">Email</h4>
                   <h4 className="fi hidden">Sähköposti</h4>
-                  <p>info@varatek.fi</p>
+                  <p><a href="mailto:info@varatek.fi" className="contact-link email"><i className="fas fa-envelope" /> info@varatek.fi</a></p>
                 </div>
               </div>
               <div className="map-container">
