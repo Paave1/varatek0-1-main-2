@@ -279,6 +279,9 @@ export default function Page() {
             <div className="contact-info">
               <div className="contact-details">
                 <div className="info-item">
+                  <p>VaraTek Oy — Y-tunnus: 3504120-8</p>
+                </div>
+                <div className="info-item">
                   <h4 className="en">Address</h4>
                   <h4 className="fi hidden">Osoite</h4>
                   <p>Malagankatu 4 A 8, 00220 Helsinki</p>
