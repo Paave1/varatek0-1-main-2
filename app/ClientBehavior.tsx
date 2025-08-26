@@ -96,29 +96,14 @@ export function ClientBehavior() {
     const onContactSubmit = async (e: Event) => {
       e.preventDefault();
       if (!contactForm) return;
+      const formData = new FormData(contactForm);
       const currentLang = localStorage.getItem('selectedLanguage') || 'fi';
       try {
-        // EmailJS without SDK, plain REST
-        const publicKey = contactForm.getAttribute('data-emailjs-public') || '';
-        const serviceId = contactForm.getAttribute('data-emailjs-service') || '';
-        const templateId = contactForm.getAttribute('data-emailjs-template') || '';
-        const name = (document.getElementById('name') as HTMLInputElement).value;
-        const email = (document.getElementById('email') as HTMLInputElement).value;
-        const message = (document.getElementById('message') as HTMLTextAreaElement).value;
-
-        const payload = {
-          service_id: serviceId,
-          template_id: templateId,
-          user_id: publicKey,
-          template_params: { name, email, message }
-        };
-
-        const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        const res = await fetch('https://formspree.io/f/movnqnwe', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          body: formData,
+          headers: { 'Accept': 'application/json' }
         });
-
         if (res.ok) {
           alert(currentLang === 'fi' ? 'Kiitos viestistäsi! Otamme sinuun yhteyttä pian.' : 'Thank you for your message! We will get back to you soon.');
           contactForm.reset();

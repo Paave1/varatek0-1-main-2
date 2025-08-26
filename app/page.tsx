@@ -254,12 +254,7 @@ export default function Page() {
           <h2 className="fi hidden">Ota Yhteyttä</h2>
           <div className="contact-content">
             <div className="contact-form">
-              <form
-                id="contactForm"
-                data-emailjs-public="your_public_key"
-                data-emailjs-service="your_service_id"
-                data-emailjs-template="your_template_id"
-              >
+              <form id="contactForm">
                 <div className="form-group">
                   <label htmlFor="name" className="en">Name</label>
                   <label htmlFor="name" className="fi hidden">Nimi</label>
