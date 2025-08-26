@@ -3,8 +3,38 @@ import type { Metadata } from 'next';
 import { ClientBehavior } from './ClientBehavior';
 
 export const metadata: Metadata = {
-  title: 'Varatek Construction Company',
-  viewport: 'width=device-width, initial-scale=1.0'
+  metadataBase: new URL('https://varatek.fi'),
+  title: {
+    default: 'VARATEK — Rakennusyhtiö',
+    template: '%s | VARATEK',
+  },
+  description: 'Moderni rakennusyhtiö: uudisrakentaminen, saneeraus, sisustus. Helsinki, Espoo, Vantaa.',
+  alternates: {
+    canonical: '/',
+    languages: {
+      en: '/?lang=en',
+      fi: '/?lang=fi',
+    },
+  },
+  openGraph: {
+    type: 'website',
+    url: 'https://varatek.fi',
+    title: 'VARATEK — Rakennusyhtiö',
+    description: 'Uudisrakentaminen, saneeraus, sisustus.',
+    images: [{ url: '/images/hero.jpg', width: 1200, height: 630, alt: 'Varatek' }],
+    locale: 'fi_FI',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'VARATEK — Rakennusyhtiö',
+    description: 'Uudisrakentaminen, saneeraus, sisustus.',
+    images: ['/images/hero.jpg'],
+  },
+  viewport: 'width=device-width, initial-scale=1.0',
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -17,6 +47,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
       </head>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'VARATEK',
+              url: 'https://varatek.fi',
+              logo: 'https://varatek.fi/images/logo.svg',
+              email: 'info@varatek.fi',
+              telephone: '+358451964604',
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: 'Malagankatu 4 A 8',
+                addressLocality: 'Helsinki',
+                postalCode: '00220',
+                addressCountry: 'FI',
+              },
+            }),
+          }}
+        />
         {/* header moved from original index.html */}
         <header>
           <div className="logo-container">
