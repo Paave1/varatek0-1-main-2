@@ -1447,11 +1447,12 @@ footer {
 @media (max-width: 480px) {
     .hero-container {
         flex-direction: column;
+        gap: 10px;
     }
 
     .hero-image {
         order: -1;
-        margin-bottom: 10px;
+        margin-bottom: 6px;
     }
 
     .hero-content {
@@ -1495,25 +1496,25 @@ footer {
         order: 2;
     }
     
-    .hero h1 {
-        font-size: 2rem;
-    }
+    .hero { padding: 56px 0; }
+    .hero h1 { font-size: 1.75rem; margin-bottom: 8px; }
     
-    .hero p {
-        font-size: 1rem;
-        margin-bottom: 30px;
-    }
+    .hero p { font-size: 0.95rem; margin-bottom: 12px; }
     
     .hero-buttons {
         flex-direction: column;
         width: 100%;
+        gap: 10px;
     }
     
     .hero-buttons .cta-button {
         width: 100%;
-        margin-bottom: 10px;
+        margin-bottom: 6px;
         text-align: center;
     }
+
+    .cta-button { padding: 10px 16px; font-size: 13px; }
+    .big-house-logo { max-height: 140px; }
     
     .service-card {
         padding: 20px;
