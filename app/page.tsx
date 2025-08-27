@@ -284,7 +284,7 @@ export default function Page() {
                 <div className="info-item">
                   <h4 className="en">Address</h4>
                   <h4 className="fi hidden">Osoite</h4>
-                  <p>Malagankatu 4 A 8, 00220 Helsinki</p>
+                  <p>Malagankatu 4 A , 00220 Helsinki</p>
                 </div>
                 <div className="info-item">
                   <h4 className="en">Phone</h4>
@@ -302,7 +302,7 @@ export default function Page() {
               </div>
               <div className="map-container">
                 <iframe
-                  src="https://www.google.com/maps?q=Malagankatu%204%20A%208,%2000220%20Helsinki&z=14&output=embed"
+                  src="https://www.google.com/maps?q=Malagankatu%204%20A,%2000220%20Helsinki&z=14&output=embed"
                   width="100%"
                   height="300"
                   style={{ border: 0, borderRadius: 12 }}

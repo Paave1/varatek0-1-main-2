@@ -60,7 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               telephone: '+358451964604',
               address: {
                 '@type': 'PostalAddress',
-                streetAddress: 'Malagankatu 4 A 8',
+                streetAddress: 'Malagankatu 4 A',
                 addressLocality: 'Helsinki',
                 postalCode: '00220',
                 addressCountry: 'FI',
