@@ -71,7 +71,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Site header */}
         <header>
           <div className="logo-container">
-            <img src="/images/logo.svg" alt="Varatek Logo" className="logo" />
+            <svg className="logo" viewBox="0 0 161 160" xmlns="http://www.w3.org/2000/svg" aria-label="Varatek Logo">
+              <g transform="translate(0.000000,160.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none">
+                <path d="M540 1244 l-245 -144 -107 0 -108 0 0 -81 0 -81 53 30 c28 16 73 41 100 56 l47 28 0 -381 c0 -374 0 -381 20 -381 20 0 20 7 20 394 l0 394 43 25 c23 13 132 76 241 140 l200 116 56 -32 c31 -18 129 -75 218 -127 l162 -95 -365 -3 -365 -2 0 -405 0 -405 95 0 95 0 0 163 c0 90 2 166 4 168 2 2 50 3 105 1 l101 -3 0 -165 0 -164 210 0 210 0 -2 328 c-3 283 -5 327 -18 327 -13 0 -15 -40 -17 -295 -2 -162 -3 -303 -3 -312 0 -16 -15 -18 -175 -18 l-175 0 0 170 0 170 -135 0 -135 0 0 -170 0 -170 -65 0 -65 0 0 375 0 375 381 0 380 0 110 -65 c61 -36 113 -65 115 -65 2 0 4 36 4 80 l0 80 -108 0 -108 0 -249 145 c-137 80 -256 145 -264 144 -9 0 -126 -65 -261 -145z m-310 -178 c0 -2 -27 -20 -60 -39 l-60 -36 0 39 0 40 60 0 c33 0 60 -2 60 -4z m1270 -36 l0 -39 -60 36 c-33 19 -60 37 -60 39 0 2 27 4 60 4 l60 0 0 -40z"/>
+              </g>
+            </svg>
             <div className="logo-text">
               <h1 className="en">VARATEK</h1>
               <h1 className="fi hidden">VARATEK</h1>
