@@ -1497,15 +1497,11 @@ footer {
     .hero { padding: calc(72px + env(safe-area-inset-top, 0px)) 0 72px; }
     .hero h1 { font-size: clamp(1.5rem, 6.2vw, 1.8rem); margin-bottom: 10px; }
     
-    .hero p { font-size: clamp(0.9rem, 3.4vw, 1rem); margin-bottom: 12px; }
+    .hero p { font-size: clamp(0.9rem, 3.4vw, 1rem); margin-bottom: 18px; }
     
-    .hero-buttons { flex-direction: column; width: 100%; gap: 10px; }
+    .hero-buttons { flex-direction: column; width: 100%; gap: 14px; }
     
-    .hero-buttons .cta-button {
-        width: 100%;
-        margin-bottom: 6px;
-        text-align: center;
-    }
+    .hero-buttons .cta-button { width: 100%; margin-bottom: 0; text-align: center; }
 
     .cta-button { padding: 10px 16px; font-size: inherit; }
     .big-house-logo { max-height: clamp(130px, 20vh, 170px); }
