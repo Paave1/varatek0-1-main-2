@@ -405,6 +405,7 @@ header.on-hero .logo {
     letter-spacing: 0.5px;
     transition: all 0.3s ease;
     text-align: center;
+    text-transform: uppercase;
 }
 
 .cta-button.primary-btn {
@@ -1506,7 +1507,7 @@ footer {
         text-align: center;
     }
 
-    .cta-button { padding: 10px 16px; font-size: 13px; }
+    .cta-button { padding: 10px 16px; font-size: inherit; }
     .big-house-logo { max-height: 150px; }
     
     .service-card {
