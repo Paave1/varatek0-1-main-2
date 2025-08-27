@@ -4,8 +4,7 @@ import { useEffect } from 'react';
 
 export function ClientBehavior() {
   useEffect(() => {
-    // Paste script.js logic
-    // Mobile menu functionality
+    // Mobile menu: toggle and overlay
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const mainNav = document.getElementById('mainNav');
     const menuOverlay = document.getElementById('menuOverlay');
@@ -55,6 +54,7 @@ export function ClientBehavior() {
     const langButtons = document.querySelectorAll('.lang-btn');
     const enElements = document.querySelectorAll('.en');
     const fiElements = document.querySelectorAll('.fi');
+    const testimonialsSliderEl = document.getElementById('testimonialsSlider');
     function setLanguage(lang: string) {
       localStorage.setItem('selectedLanguage', lang);
       langButtons.forEach(btn => {
@@ -68,6 +68,8 @@ export function ClientBehavior() {
         enElements.forEach(el => el.classList.add('hidden'));
         fiElements.forEach(el => el.classList.remove('hidden'));
       }
+      // Recalculate testimonials container height after text swap
+      setTimeout(() => adjustTestimonialsHeight(), 0);
     }
     langButtons.forEach(button => {
       button.addEventListener('click', (e) => {
@@ -121,6 +123,16 @@ export function ClientBehavior() {
     let currentIndex = 0;
     let interval: any;
     if (testimonials.length > 0) (testimonials[0] as HTMLElement).classList.add('active');
+
+    const adjustTestimonialsHeight = () => {
+      if (!testimonialsSliderEl) return;
+      let max = 0;
+      testimonials.forEach(t => {
+        const h = (t as HTMLElement).scrollHeight;
+        if (h > max) max = h;
+      });
+      (testimonialsSliderEl as HTMLElement).style.height = `${max}px`;
+    };
     function showTestimonial(index: number) {
       testimonials.forEach(t => t.classList.remove('active'));
       (testimonials[index] as HTMLElement).classList.add('active');
@@ -133,6 +145,7 @@ export function ClientBehavior() {
       if (currentLang === 'en') { enEls.forEach(el => el.classList.remove('hidden')); fiEls.forEach(el => el.classList.add('hidden')); }
       else { enEls.forEach(el => el.classList.add('hidden')); fiEls.forEach(el => el.classList.remove('hidden')); }
       currentIndex = index;
+      adjustTestimonialsHeight();
     }
     dots.forEach(dot => {
       dot.addEventListener('click', (e) => {
@@ -145,6 +158,7 @@ export function ClientBehavior() {
     function nextTestimonial() { let next = currentIndex + 1; if (next >= testimonials.length) next = 0; showTestimonial(next); }
     function resetInterval() { clearInterval(interval); interval = setInterval(nextTestimonial, 5000); }
     resetInterval();
+    adjustTestimonialsHeight();
 
     // Projects scroller controls with loop
     const projectsScroller = document.querySelector('.projects-scroller .projects-grid');
@@ -159,7 +173,7 @@ export function ClientBehavior() {
       projectsPrev.addEventListener('click', () => { const current = getIndex(); const prev = current - 1; if (prev < 0) scrollToIndex(cards.length - 1); else scrollToIndex(prev); });
     }
 
-    // Header click → scroll to #home (desktop and mobile) when clicking free space
+    // Header free-space click scrolls to #home
     const header = document.querySelector('header');
     const headerClick = (e: Event) => {
       const target = e.target as HTMLElement | null;
@@ -174,6 +188,22 @@ export function ClientBehavior() {
       }
     };
     header?.addEventListener('click', headerClick);
+
+    // Toggle high-contrast header on top of hero for readability
+    const hero = document.getElementById('home');
+    const updateHeaderContrast = () => {
+      if (!header || !hero) return;
+      const headerHeight = (header as HTMLElement).offsetHeight || 0;
+      const heroRect = (hero as HTMLElement).getBoundingClientRect();
+      if (heroRect.bottom > headerHeight) (header as HTMLElement).classList.add('on-hero');
+      else (header as HTMLElement).classList.remove('on-hero');
+    };
+    updateHeaderContrast();
+    // Re-run after layout
+    setTimeout(updateHeaderContrast, 0);
+    window.addEventListener('scroll', updateHeaderContrast, { passive: true } as any);
+    window.addEventListener('resize', updateHeaderContrast);
+    window.addEventListener('resize', adjustTestimonialsHeight);
     return () => {
       document.removeEventListener('click', delegatedClick);
       menuOverlay?.removeEventListener('click', overlayClick);
@@ -181,6 +211,9 @@ export function ClientBehavior() {
       anchors.forEach(a => a.removeEventListener('click', anchorHandler as any));
       clearInterval(interval);
       header?.removeEventListener('click', headerClick);
+      window.removeEventListener('scroll', updateHeaderContrast as any);
+      window.removeEventListener('resize', updateHeaderContrast as any);
+      window.removeEventListener('resize', adjustTestimonialsHeight as any);
       contactForm?.removeEventListener('submit', onContactSubmit as any);
     };
   }, []);

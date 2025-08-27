@@ -84,11 +84,16 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 30px 60px;
-    background-color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid var(--medium-blue);
-    position: sticky;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.10);
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
     z-index: 10;
     transition: all 0.3s ease;
 }
@@ -205,6 +210,54 @@ header {
 .nav-links a.nav-link:hover {
     color: var(--primary-color);
     transform: translateY(-1px);
+}
+
+/* Header on dark hero: improve readability */
+header.on-hero .logo-text h1,
+header.on-hero .logo-text p {
+    color: var(--white);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+header.on-hero .nav-links a.nav-link {
+    color: var(--white);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+header.on-hero .nav-links a.nav-link::after {
+    background-color: var(--white);
+}
+
+header.on-hero .mobile-menu-toggle span {
+    background-color: var(--white);
+}
+
+header.on-hero .language-switcher {
+    border-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+header.on-hero .lang-btn {
+    color: var(--white);
+}
+
+header.on-hero .lang-btn.active {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--primary-color);
+}
+
+/* Ensure mobile drawer keeps dark text even when header is on-hero */
+header.on-hero nav#mainNav.active .nav-links a.nav-link {
+    color: var(--primary-color) !important;
+    text-shadow: none;
+}
+
+header.on-hero nav#mainNav.active .nav-links a.nav-link::after {
+    background-color: var(--primary-color) !important;
+}
+
+header.on-hero .logo {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
 }
 
 /* Hero Section */
@@ -565,7 +618,7 @@ header {
 
 .service-card {
     background-color: var(--white);
-    padding: 30px 20px;
+    padding: 24px 20px;
     border-radius: 16px;
     box-shadow: 0 8px 25px rgba(30, 58, 95, 0.08);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -597,25 +650,30 @@ header {
 }
 
 .service-icon {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     background-color: var(--primary-color);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 20px;
+    margin: 0 auto 16px;
     color: var(--white);
-    font-size: 24px;
+    font-size: 28px;
     box-shadow: 0 6px 15px rgba(30, 58, 95, 0.15);
 }
 
 .service-card h3 {
     color: var(--primary-color);
-    margin-bottom: 20px;
-    font-size: 1.4rem;
+    margin-bottom: 16px;
+    font-size: 1.6rem;
     font-weight: 400;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.1px;
+    text-transform: uppercase;
+    line-height: 1.25;
+    overflow-wrap: anywhere; /* allow breaks inside long words */
+    word-break: break-word;
+    hyphens: auto;
 }
 
 .service-card p {
@@ -702,6 +760,8 @@ header {
     border-radius: 8px;
     font-size: 0.95rem;
     line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .project-caption .en.hidden,
@@ -739,6 +799,7 @@ header {
     display: none;
     margin-bottom: 20px;
     text-align: center;
+    text-transform: uppercase;
 }
 
 .project-placeholder span.en:not(.hidden) {
@@ -844,6 +905,7 @@ header {
     overflow: hidden;
     position: relative;
     transition: transform 0.5s ease;
+    height: auto; /* will be set to max by JS to avoid layout shift */
 }
 
 @media (max-width: 768px) {
@@ -867,6 +929,7 @@ header {
     left: 0;
     width: 100%;
     transition: opacity 0.5s ease;
+    will-change: opacity;
 }
 
 .testimonial.active {

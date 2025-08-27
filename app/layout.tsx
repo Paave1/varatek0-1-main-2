@@ -68,7 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }),
           }}
         />
-        {/* header moved from original index.html */}
+        {/* Site header */}
         <header>
           <div className="logo-container">
             <img src="/images/logo.svg" alt="Varatek Logo" className="logo" />

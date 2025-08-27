@@ -2,7 +2,7 @@ export default function Page() {
   return (
     <main>
       <section id="home" className="hero">
-        {/* Hero background */}
+        {/* Hero content */}
         <div className="hero-container">
           <div className="hero-content">
             <h1 className="en">Building<br/>the future</h1>
@@ -35,7 +35,7 @@ export default function Page() {
           <h2 className="en">About Varatek</h2>
           <h2 className="fi hidden">Tietoa Varatekista</h2>
           <div className="about-content">
-            {/* About side images */}
+            {/* Side images */}
             <div className="about-side about-left">
               <img src="/images/about-left.jpg" alt="About left" loading="lazy" decoding="async" />
             </div>
