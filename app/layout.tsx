@@ -94,12 +94,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
             <nav id="mainNav">
               <ul className="nav-links">
-                <li><a href="#home" className="nav-link"><span className="en">Home</span><span className="fi hidden">Koti</span></a></li>
-                <li><a href="#about" className="nav-link"><span className="en">About</span><span className="fi hidden">Tietoa</span></a></li>
-                <li><a href="#services" className="nav-link"><span className="en">Services</span><span className="fi hidden">Palvelut</span></a></li>
-                <li><a href="#projects" className="nav-link"><span className="en">Projects</span><span className="fi hidden">Projektit</span></a></li>
-                <li><a href="#testimonials" className="nav-link"><span className="en">Testimonials</span><span className="fi hidden">Palautteet</span></a></li>
-                <li><a href="#contact" className="nav-link"><span className="en">Contact</span><span className="fi hidden">Yhteystiedot</span></a></li>
+                <li><a href="/#home" className="nav-link"><span className="en">Home</span><span className="fi hidden">Koti</span></a></li>
+                <li><a href="/#about" className="nav-link"><span className="en">About</span><span className="fi hidden">Tietoa</span></a></li>
+                <li><a href="/#services" className="nav-link"><span className="en">Services</span><span className="fi hidden">Palvelut</span></a></li>
+                <li><a href="/#projects" className="nav-link"><span className="en">Projects</span><span className="fi hidden">Projektit</span></a></li>
+                <li><a href="/#testimonials" className="nav-link"><span className="en">Testimonials</span><span className="fi hidden">Palautteet</span></a></li>
+                <li><a href="/#contact" className="nav-link"><span className="en">Contact</span><span className="fi hidden">Yhteystiedot</span></a></li>
                 <li><a href="/jobs" className="nav-link"><span className="en">Careers</span><span className="fi hidden">Työnhakijalle</span></a></li>
               </ul>
             </nav>
@@ -130,12 +130,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
               <div className="footer-links">
                 <ul>
-                  <li><a href="#home" className="nav-link"><span className="en">Home</span><span className="fi hidden">Koti</span></a></li>
-                  <li><a href="#about" className="nav-link"><span className="en">About</span><span className="fi hidden">Tietoa</span></a></li>
-                  <li><a href="#services" className="nav-link"><span className="en">Services</span><span className="fi hidden">Palvelut</span></a></li>
-                  <li><a href="#projects" className="nav-link"><span className="en">Projects</span><span className="fi hidden">Projektit</span></a></li>
-                  <li><a href="#testimonials" className="nav-link"><span className="en">Testimonials</span><span className="fi hidden">Palautteet</span></a></li>
-                  <li><a href="#contact" className="nav-link"><span className="en">Contact</span><span className="fi hidden">Yhteystiedot</span></a></li>
+                  <li><a href="/#home" className="nav-link"><span className="en">Home</span><span className="fi hidden">Koti</span></a></li>
+                  <li><a href="/#about" className="nav-link"><span className="en">About</span><span className="fi hidden">Tietoa</span></a></li>
+                  <li><a href="/#services" className="nav-link"><span className="en">Services</span><span className="fi hidden">Palvelut</span></a></li>
+                  <li><a href="/#projects" className="nav-link"><span className="en">Projects</span><span className="fi hidden">Projektit</span></a></li>
+                  <li><a href="/#testimonials" className="nav-link"><span className="en">Testimonials</span><span className="fi hidden">Palautteet</span></a></li>
+                  <li><a href="/#contact" className="nav-link"><span className="en">Contact</span><span className="fi hidden">Yhteystiedot</span></a></li>
                 </ul>
               </div>
               <div className="footer-slogan">
